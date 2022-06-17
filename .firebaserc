@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "akw-todolist": {
+      "hosting": {
+        "firebase-todolist": [
+          "akw-todolist"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "akw-todolist"
+  }
+}
