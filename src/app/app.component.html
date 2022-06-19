@@ -1,5 +1,9 @@
 <h1>Todo-List</h1>
-<br>
+<div>
+  <input type="text" [(ngModel)]="input">
+  <button (click)="addTodo()">send</button>
+</div>
+
 <ul>
-  <li *ngFor="let todo of todos; let i = index">{{ todo[i] }}</li>
+  <li *ngFor="let todo of todos$ | async">{{ todo.name}} <button (click)="remove()">löschen</button></li>
 </ul>

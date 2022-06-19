@@ -1,5 +1,12 @@
 import { Component } from '@angular/core';
-import { Firestore, collectionData, collection } from '@angular/fire/firestore';
+import {
+  Firestore,
+  collectionData,
+  collection,
+  doc,
+  getDoc,
+} from '@angular/fire/firestore';
+import { setDoc } from '@firebase/firestore';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -9,16 +16,25 @@ import { Observable } from 'rxjs';
 })
 export class AppComponent {
   todos$: Observable<any>;
-  todos: Array<any>;
+  input: any = '';
 
-  constructor(firestore: Firestore) {
+  constructor(private firestore: Firestore) {
     const coll = collection(firestore, 'todo'); // collection from Firebase-data
     this.todos$ = collectionData(coll);
 
     this.todos$.subscribe((newTodos) => {
       // Subsciribe to call the function
       console.log('Neue Todos;', newTodos);
-      this.todos = newTodos;
     });
+  }
+  addTodo() {
+    const coll = collection(this.firestore, 'todo');
+    setDoc(doc(coll), { name: this.input });
+    this.input = '';
+  }
+
+  remove() {
+    const coll = collection(this.firestore, 'todo');
+    coll.delete();
   }
 }
